@@ -90,7 +90,7 @@ def run_agent(question: str):
         tool_call_id = tool_call.get("id")
 
         logger.info(f"  [Tool Selected] {tool_name} with args: {tool_args}")
-        
+
         tool_to_use = tools_dict.get(tool_name)
         if tool_to_use is None:
             raise ValueError(f"Tool '{tool_to_use}' not found")
