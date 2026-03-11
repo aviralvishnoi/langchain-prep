@@ -1,4 +1,5 @@
 from dotenv import load_dotenv
+
 load_dotenv()
 from langchain.agents import create_agent
 from langchain.tools import tool
@@ -25,7 +26,7 @@ from langchain_tavily import TavilySearch
 # tools = [search]
 
 llm = ChatOpenAI()
-tools = [TavilySearch]
+tools = [TavilySearch()]
 agent = create_agent(model=llm, tools=tools)
 
 
