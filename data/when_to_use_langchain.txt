@@ -1,0 +1,187 @@
+🧠 LangChain: When to Use It — and When You Really Shouldn’t
+Sahan Kumarasiri
+Sahan Kumarasiri
+
+Follow
+4 min read
+·
+Nov 21, 2025
+50
+
+
+
+
+
+
+Press enter or click to view image in full size
+
+The practical guide for developers building AI-powered applications
+
+LangChain has quickly become one of the most talked-about frameworks in AI development. From Retrieval-Augmented Generation (RAG) systems to autonomous agents, it promises to give developers a flexible, powerful way to build complex AI workflows.
+
+But here’s the truth most people don’t say out loud:
+
+LangChain is extremely useful in certain scenarios… and completely unnecessary in others.
+
+I have produced a video that simplifies and explains the entire concept, as shown below: 👇
+
+
+🧠 LangChain: When to Use It — and When You Really Shouldn’t
+So in this article, let’s break down:
+
+🌐 What LangChain actually is
+✅ When you should use it
+❌ When you should NOT use it
+⚒️ Real-world examples
+🧭 A practical decision framework
+🚀 Final recommendation
+🌐 What Is LangChain, Really?
+
+LangChain is an open-source framework designed to build applications that use Large Language Models (LLMs) in a structured, production-ready way.
+
+Press enter or click to view image in full size
+
+What makes it special is that it provides tools for:
+
+Prompt templates
+Multi-step chains
+Agents that can use tools
+Memory for chat apps
+RAG and vector search
+Workflow graphs using LangGraph
+Integration with LLMs like OpenAI, Anthropic, Gemini, Ollama, LLaMA, etc.
+Think of LangChain as:
+
+Next.js for AI workflows — it adds structure where plain API calls fall short.
+
+✅ When You SHOULD Use LangChain
+
+1. When building a RAG system (Retrieval-Augmented Generation)
+If your app needs to answer questions based on:
+
+PDFs
+Company documents
+Databases
+Private datasets
+LangChain’s retrievers, text splitters, and vector database integrations make it ideal.
+
+Example use case:
+📚 A “Chat with Your Documents” app using Pinecone/FAISS + LangChain + Gemini.
+
+2. When you need step-wise workflows (chains)
+If you have a multi-step pipeline such as:
+
+Read input
+Clean text
+Generate summary
+Extract entities
+Store in DB
+LangChain allows you to create a pipeline of LLM + non-LLM steps.
+
+3. When building AI agents
+Agents can:
+
+Call APIs
+Execute calculations
+Access tools
+Make decisions dynamically
+This is hard to implement manually. LangChain makes it declarative.
+
+4. When you’re using multiple LLM providers
+If your system needs to switch between:
+
+OpenAI
+Gemini
+Claude
+Ollama
+Local LLaMA
+LangChain gives you a unified API.
+
+5. When working with local LLMs (Ollama, LM Studio, LLaMA)
+Local models require special handling and model-specific configs.
+LangChain has built-in adapters that simplify using them.
+
+❌When You Should NOT Use LangChain
+
+1. Simple requests like “generate text” or “summarize this”
+If your entire use case is:
+
+const result = await model.generate("write me a blog post");
+You do NOT need LangChain.
+
+Write on Medium
+This is faster, simpler, and cheaper with direct Gemini/OpenAI SDK.
+
+2. Serverless environments where cold start is critical
+LangChain adds:
+
+Large dependency size
+Dependency tree crawling
+Slower boot time
+Vercel serverless functions will suffer.
+Better: Use Gemini/Ollama APIs directly.
+
+3. Projects where transparency & debugging matters
+LangChain can hide:
+
+Prompt structure
+Steps
+Routing
+Tool call decisions
+This can make debugging very difficult.
+
+4. When you need full control over prompts
+LangChain templates abstract prompt management.
+If you prefer to fully own:
+
+Prompt engineering
+Context window usage
+Model interaction strategy
+Use plain SDKs.
+5. When building small MVPs, prototypes, or hackathon projects
+LangChain introduces:
+
+Boilerplate
+Abstraction
+Learning curve
+More moving parts
+This slows down rapid prototyping.
+
+⚒️ Real-world examples
+
+Press enter or click to view image in full size
+
+LangChain vs Direct API
+🧭 A Simple Decision Framework
+
+Ask yourself these 3 questions:
+
+Q1. Do I need multi-step workflows or agents?
+If yes → LangChain is a good fit.
+
+Q2. Do I need to retrieve data (RAG) from outside the LLM?
+If yes → LangChain is the best option.
+
+Q3. Do I want fine-grained control, simplicity, and speed?
+If yes → Avoid LangChain.
+
+🚀 Final Thoughts: Use LangChain Wisely
+
+LangChain is powerful — when used correctly.
+
+Use it for:
+
+RAG
+Workflow pipelines
+AI agents
+Multi-model systems
+Local LLM integrations
+Avoid it for:
+
+Simple generation tasks
+Prototypes
+Serverless apps needing fast startup
+Cases needing high transparency
+LangChain is not the only way to build AI apps — but for the right use case, it’s the BEST way.
+
+Thanks for reading!…
