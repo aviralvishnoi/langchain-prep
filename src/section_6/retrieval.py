@@ -3,9 +3,12 @@ import os
 from dotenv import load_dotenv
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.messages import HumanMessage
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.runnables import RunnablePassthrough
 from langchain_pinecone import PineconeVectorStore
 from langchain_ollama import ChatOllama, OllamaEmbeddings
 from loguru import logger
+from operator import itemgetter
 
 load_dotenv()
 
@@ -68,6 +71,32 @@ def retrieval_chain_without_lcel(query: str):
     return response.content
 
 
+def create_retrieval_chain_with_lcel():
+    """
+    Create a retrieval chain using LCEL (LangChain Expression Language).
+    Returns a chain that can be invoked with {"question": "..."}
+
+    Advantages over non-LCEL approach:
+    - Declarative and composable: Easy to chain operations with pipe operator (|)
+    - Built-in streaming: chain.stream() works out of the box
+    - Built-in async: chain.ainvoke() and chain.astream() available
+    - Batch processing: chain.batch() for multiple inputs
+    - Type safety: Better integration with LangChain's type system
+    - Less code: More concise and readable
+    - Reusable: Chain can be saved, shared, and composed with other chains
+    - Better debugging: LangChain provides better observability tools
+    """
+    retrieval_chain = (
+        RunnablePassthrough.assign(
+            context=itemgetter("question") | retriever | format_docs
+        )
+        | prompt_template
+        | llm
+        | StrOutputParser()
+    )
+    return retrieval_chain
+
+
 def main():
     logger.info("Retrieving...")
 
@@ -93,6 +122,25 @@ def main():
     result_without_lcel = retrieval_chain_without_lcel(query)
     logger.info("\nAnswer:")
     logger.info(result_without_lcel)
+
+    # ========================================================================
+    # Option 2: Use implementation WITH LCEL (Better Approach)
+    # ========================================================================
+    print("\n" + "=" * 70)
+    print("IMPLEMENTATION 2: With LCEL - Better Approach")
+    print("=" * 70)
+    print("Why LCEL is better:")
+    print("- More concise and declarative")
+    print("- Built-in streaming: chain.stream()")
+    print("- Built-in async: chain.ainvoke()")
+    print("- Easy to compose with other chains")
+    print("- Better for production use")
+    print("=" * 70)
+
+    chain_with_lcel = create_retrieval_chain_with_lcel()
+    result_with_lcel = chain_with_lcel.invoke({"question": query})
+    print("\nAnswer:")
+    print(result_with_lcel)
 
 
 if __name__ == "__main__":
